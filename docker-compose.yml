@@ -1,7 +1,7 @@
 services:
   thedoctor:
-    image: thedoctor:prod
+    image: flaymister/the_doctor:prod
     ports:
-      - "5001:5000"
+      - "5000:5000"
     env_file:
       - .env
