@@ -8,10 +8,6 @@ before_install:
 
 script:
   - docker build -t $DOCKER_USERNAME/the_doctor:latest TheDoctor/
-  - |
-      if [ -n "$TRAVIS_TAG" ]; then
-        docker tag $DOCKER_USERNAME/the_doctor:latest $DOCKER_USERNAME/the_doctor:$TRAVIS_TAG
-      fi
 
 after_success:
   - docker push $DOCKER_USERNAME/the_doctor:latest
