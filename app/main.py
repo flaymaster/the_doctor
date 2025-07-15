@@ -1,7 +1,6 @@
 from flask import Flask, jsonify
 import boto3
 from dotenv import load_dotenv
-from boto3.dynamodb.conditions import Key
 # Load environment variables from .env
 load_dotenv()
 
@@ -14,14 +13,11 @@ def get_secret():
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table('devops-challenge')
     try:
-        response = table.query(
-            KeyConditionExpression=Key(
-                'code_name').eq(code_name)
-        )
-        item = response.get('Item')
+        key = {"code_name": code_name}
+        item = table.get_item(Key=key).get('Item')
         if not item or 'secret_code' not in item:
             return jsonify({'error': 'Secret code not found'}), 404
-        return jsonify({'secret_code': {item['secret_code']}})
+        return jsonify({'secret_code': item['secret_code']})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
