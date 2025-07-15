@@ -30,8 +30,8 @@ def get_secret():
 def health():
     return jsonify({
         'status': 'healthy',
-        'container': '<LINK_TO_HUB>',
-        'project': 'github.com/omerxx/ecscale'
+        'container': 'https://hub.docker.com/repository/docker/flaymister/thedoctor-docker/general',
+        'project': 'https://github.com/flaymaster/the_doctor#'
     })
 
 
