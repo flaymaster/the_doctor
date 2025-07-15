@@ -7,7 +7,11 @@ before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 script:
-  - docker build -t $DOCKER_USERNAME/the_doctor:latest TheDoctor/
+  - docker build . -f Dockerfile -t $DOCKER_USERNAME/the_doctor:$latest
 
 after_success:
   - docker push $DOCKER_USERNAME/the_doctor:latest
+  - |
+      if [ -n "$TRAVIS_TAG" ]; then
+        docker push $DOCKER_USERNAME/the_doctor:$TRAVIS_TAG
+      fi
