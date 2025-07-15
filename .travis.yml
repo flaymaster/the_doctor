@@ -11,7 +11,3 @@ script:
 
 after_success:
   - docker push $DOCKER_USERNAME/the_doctor:latest
-  - |
-      if [ -n "$TRAVIS_TAG" ]; then
-        docker push $DOCKER_USERNAME/the_doctor:$TRAVIS_TAG
-      fi
